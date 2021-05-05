@@ -16,7 +16,6 @@ class DetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = 90
         NetworkManager.shared.fetchData(with: { charecters in
             self.chars = charecters
             DispatchQueue.main.async {
@@ -36,11 +35,20 @@ class DetailViewController: UITableViewController {
         var content = cell.defaultContentConfiguration()
         content.text = char.name
         content.secondaryText = char.nickname
-        
-        content.imageProperties.cornerRadius = tableView.rowHeight / 2
         cell.contentConfiguration = content
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let character = chars[indexPath.row]
+        
+        performSegue(withIdentifier: "ShowDisc", sender: character)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let showCahrVC = segue.destination as? ShowCharConViewController else { return }
+        showCahrVC.char = sender as? Char
     }
 }
 
