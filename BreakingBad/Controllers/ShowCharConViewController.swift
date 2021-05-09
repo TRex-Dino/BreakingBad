@@ -21,6 +21,8 @@ class ShowCharConViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.tintColor = .orange
+        
         nameLabel.text = character?.name
         nickNameLabel.text = character?.nickname
         birthdayLabel.text = character?.birthday
