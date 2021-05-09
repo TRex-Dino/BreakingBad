@@ -21,14 +21,6 @@ class TableViewCell: UITableViewCell {
         nameLabel.text = character?.name
         nickNamaLabel.text = character?.nickname
         characterImageView.fetchImage(from: character?.img ?? "")
-//        DispatchQueue.global().async {
-//            guard let stringUrl = character?.img else { return }
-//            guard let imageUrl = URL(string: stringUrl) else { return }
-//            guard let imageData = try? Data(contentsOf: imageUrl) else { return }
-//            DispatchQueue.main.async {
-//                self.characterImageView.image = UIImage(data: imageData)
-//            }
-//        }
     }
 
 }

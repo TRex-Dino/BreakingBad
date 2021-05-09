@@ -29,13 +29,6 @@ class NetworkManager {
             }
     }
     
-    func fetchImage() -> Data? {
-        let url = "https://breakingbadapi.com/api/characters/"
-        
-        guard let imageURL = URL(string: url) else { return nil }
-        return try? Data(contentsOf: imageURL)
-    }
-    
     private init() {}
 }
 
