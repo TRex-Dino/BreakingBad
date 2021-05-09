@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct Char {
+struct Character {
 
     let char_id: Int?
     let name: String?
@@ -18,19 +18,8 @@ struct Char {
     let status: String?
 //    let appearance: [Int]?
     let nickname: String?
-//    let portrayed: String
+    let portrayed: String?
     let category: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case charId = "char_id"
-        case name = "name"
-        case birthday = "birthday"
-        case occupation = "occupation"
-        case img = "img"
-        case status = "status"
-        case nickname = "nickname"
-        case category = "category"
-    }
     
     init(char: [String: Any]) {
         char_id = char["char_id"] as? Int
@@ -41,13 +30,16 @@ struct Char {
         status = char["status"] as? String
         nickname = char["nickname"] as? String
         category = char["category"] as? String
+        portrayed = char["portrayed"] as? String
     }
     
-    static func getCharaters(from value: Any) -> [Char] {
-        var chars: [Char] = []
+    static func getCharaters(from value: Any) -> [Character] {
+        var chars: [Character] = []
+        
         guard let chartsData = value as? [[String: Any]] else { return [] }
+        
         for chartData in chartsData {
-            let char = Char(char: chartData)
+            let char = Character(char: chartData)
             chars.append(char)
         }
         return chars

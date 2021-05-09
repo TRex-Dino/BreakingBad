@@ -12,7 +12,7 @@ class DetailViewController: UITableViewController {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var birthdayLabel: UILabel!
     
-    var chars: [Char] = []
+    var chars: [Character] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,26 +29,21 @@ class DetailViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let char = chars[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
+        guard let charId = chars[indexPath.row].char_id else { return cell}
+        let char = chars[charId]
         
-        var content = cell.defaultContentConfiguration()
-        content.text = char.name
-        content.secondaryText = char.nickname
-        cell.contentConfiguration = content
+        cell.setValue(with: char)
         
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let character = chars[indexPath.row]
-        
-        performSegue(withIdentifier: "ShowDisc", sender: character)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let showCahrVC = segue.destination as? ShowCharConViewController else { return }
-        showCahrVC.char = sender as? Char
+        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+        
+        let showCharVC = segue.destination as! ShowCharConViewController
+        let charId = chars[indexPath.row].char_id
+        showCharVC.character = chars[charId ?? 0]
     }
 }
 

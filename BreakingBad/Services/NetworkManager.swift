@@ -11,16 +11,15 @@ import Alamofire
 class NetworkManager {
     static let shared = NetworkManager()
     
-    func fetchData(with complition: @escaping([Char])->Void) {
+    func fetchData(with complition: @escaping([Character])->Void) {
         let url = "https://breakingbadapi.com/api/characters/"
-        var chars: [Char] = []
         
         AF.request(url)
             .validate()
             .responseJSON { dataRespose in
                 switch dataRespose.result {
                 case .success(let value):
-                    chars = Char.getCharaters(from: value)
+                    let chars = Character.getCharaters(from: value)
                     DispatchQueue.main.async {
                         complition(chars)
                     }
@@ -43,6 +42,13 @@ class NetworkManager {
                     print(error)
                 }
             }
+    }
+    
+    func fetchImage() -> Data? {
+        let url = "https://breakingbadapi.com/api/characters/"
+        
+        guard let imageURL = URL(string: url) else { return nil }
+        return try? Data(contentsOf: imageURL)
     }
     
     private init() {}
