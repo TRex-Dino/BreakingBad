@@ -9,7 +9,7 @@ import UIKit
 
 class ShowCharConViewController: UIViewController {
     
-    @IBOutlet var charImageView: UIImageView!
+    @IBOutlet var charImageView: CharacterImageView!
     
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var nickNameLabel: UILabel!
@@ -28,13 +28,7 @@ class ShowCharConViewController: UIViewController {
         birthdayLabel.text = "Birthday - \(character?.birthday ?? "")"
         statusLabel.text = "Status: \(character?.status ?? "")"
         actorLabel.text = "Actor: \(character?.portrayed ?? "")"
-        DispatchQueue.global().async {
-            guard let stringUrl = self.character?.img else { return }
-            guard let imageUrl = URL(string: stringUrl) else { return }
-            guard let imageData = try? Data(contentsOf: imageUrl) else { return }
-            DispatchQueue.main.async {
-                self.charImageView.image = UIImage(data: imageData)
-            }
-        }
+        
+        charImageView.fetchImage(from: character?.img ?? "")
     }
 }

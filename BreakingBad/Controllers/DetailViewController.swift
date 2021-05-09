@@ -31,6 +31,7 @@ class DetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         guard let charId = chars[indexPath.row].char_id else { return cell}
+        
         let char = chars[charId]
         
         cell.setValue(with: char)
