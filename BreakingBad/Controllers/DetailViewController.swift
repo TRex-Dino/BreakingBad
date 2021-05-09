@@ -12,7 +12,7 @@ class DetailViewController: UITableViewController {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var birthdayLabel: UILabel!
     
-    var chars: [Character] = []
+    private var chars: [Character] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,5 +45,21 @@ class DetailViewController: UITableViewController {
         let charId = chars[indexPath.row].char_id
         showCharVC.character = chars[charId ?? 0]
     }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let like = likeAction(at: indexPath)
+        return UISwipeActionsConfiguration(actions: [like])
+    }
 }
 
+extension DetailViewController {
+    private func likeAction(at indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .normal, title: "Like") { action, view, complition in
+            
+            complition(true)
+        }
+        action.backgroundColor = .orange
+        action.image = UIImage(systemName: "heart")
+        return action
+    }
+}

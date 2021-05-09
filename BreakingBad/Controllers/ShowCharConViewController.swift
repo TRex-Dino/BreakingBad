@@ -25,7 +25,7 @@ class ShowCharConViewController: UIViewController {
         
         nameLabel.text = character?.name
         nickNameLabel.text = character?.nickname
-        birthdayLabel.text = character?.birthday
+        birthdayLabel.text = "Birthday - \(character?.birthday ?? "")"
         statusLabel.text = "Status: \(character?.status ?? "")"
         actorLabel.text = "Actor: \(character?.portrayed ?? "")"
         DispatchQueue.global().async {
